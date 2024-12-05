@@ -1,9 +1,6 @@
 from pages.order_feed_page import OrderFeedPage
 import allure
-from data import BASE_URL, ORDER_FEED_URL
-from selenium.webdriver.support import expected_conditions
-from locators.main_functionality_locators import MainFunctionalityLocators
-from selenium.webdriver.support.wait import WebDriverWait
+from data import BASE_URL
 
 class TestOrderFeed:
     @allure.description(
@@ -28,6 +25,13 @@ class TestOrderFeed:
         order_feed.get(BASE_URL)
         order_feed.login_personal_account()
         order_feed.make_order()
+        actual_order_number = order_feed.get_order_number()
+        order_feed.close_popup()
+        order_feed.go_to_orders_history()
+        order_number_in_order_history = (order_feed.find_order_by_number(actual_order_number)).text
+        order_feed.click_on_order_feed()
+        order_number_in_order_feed = (order_feed.find_order_by_number(actual_order_number)).text
+        assert order_number_in_order_history == order_number_in_order_feed
 
     @allure.description(
         'Проверка увеличения счетчика "Выполнено за все время" при оформлении заказа')
@@ -52,12 +56,30 @@ class TestOrderFeed:
         order_feed.login_personal_account()
         order_feed.click_on_order_feed()
         count_before_order = order_feed.current_count_today()
+        print(count_before_order)
         order_feed.get(BASE_URL)
         order_feed.make_order()
         order_feed.close_popup()
         order_feed.click_on_order_feed()
         count_after_order = order_feed.current_count_today()
+        print(count_after_order)
         assert count_after_order > count_before_order
+
+    @allure.description(
+        'Проверка появления номера заказа в разделе "в работе"')
+    def test_increase_today_counter(self, driver):
+        order_feed = OrderFeedPage(driver)
+        order_feed.get(BASE_URL)
+        order_feed.login_personal_account()
+        order_feed.make_order()
+        actual_order_number = int(order_feed.get_order_number())
+        print(actual_order_number)
+        order_feed.close_popup()
+        order_feed.click_on_order_feed()
+        order_feed.waiting_disappearing_orders_are_ready()
+        order_number_in_order_feed = order_feed.extract_order_number()
+        print(order_number_in_order_feed)
+        assert actual_order_number == order_number_in_order_feed
 
 
 

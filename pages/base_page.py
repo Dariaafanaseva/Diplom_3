@@ -12,18 +12,12 @@ class BasePage:
                 locator))
         return self.driver.find_element(*locator)
 
-    # def click_on_element_js(self, locator):
-    #     self.driver.execute_script("arguments[0].click();", locator)
-
-    # WebDriverWait(self.driver, self.timeout).until(
-    #     lambda driver: get_text_from_element(locator))
-
     def click_element_if_visible(self, locator):
         element = self.find_element_visibility(locator)
         self.driver.execute_script('arguments[0].click();', element)
 
     def waiting_invisibility(self, locator):
-        WebDriverWait(self.driver, 10).until(
+        WebDriverWait(self.driver, 15).until(
             expected_conditions.invisibility_of_element(locator)
         )
 

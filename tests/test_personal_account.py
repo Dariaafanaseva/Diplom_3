@@ -5,7 +5,7 @@ from data import BASE_URL, ORDERS_HISTORY, LOGIN_URL
 class TestPersonalAccount:
     @allure.description(
         'Проверка перехода по клику на "Личный кабинет"')
-    def test_go_to_page_recover_password(self, driver):
+    def test_go_to_page_personal_account(self, driver):
         personal_account = PersonalAccountPage(driver)
         personal_account.get(BASE_URL)
         personal_account.login_personal_account()
@@ -13,7 +13,7 @@ class TestPersonalAccount:
 
     @allure.description(
         'Проверка перехода в раздел "История заказов"')
-    def test_go_to_page_recover_password(self, driver):
+    def test_go_to_page_order_history(self, driver):
         personal_account = PersonalAccountPage(driver)
         personal_account.get(BASE_URL)
         personal_account.login_personal_account()

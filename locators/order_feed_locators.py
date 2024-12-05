@@ -7,3 +7,5 @@ class OrderFeedLocators:
     DEFAULT_ORDER_NUMBER = By.XPATH, '//h2[contains(text(),"09999")]'
     ALL_TIME_COUNTER = By.XPATH, '//div[p[text()="Выполнено за все время:"]]/p[2]'
     TODAY_COUNTER = By.XPATH, '//div[p[text()="Выполнено за сегодня:"]]/p[2]'
+    ALL_ORDERS_ARE_READY = By.XPATH, '//li[contains(text(),"Все текущие заказы готовы!")]'
+    CURRENT_ORDER_NUMBER_IN_ORDER_FEED = By.XPATH, '//ul[contains(@class, "OrderFeed_orderListReady")]//li[1]'

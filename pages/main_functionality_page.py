@@ -47,21 +47,19 @@ class MainFunctionalityPage(BasePage):
         self.find_element_with_wait(MainPageLocators.LOGIN_HEADER)
         self.add_text_to_element(PersonalAccountLocators.LOGIN_EMAIL_INPUT_FIELD, EMAIL)
         self.add_text_to_element(PersonalAccountLocators.LOGIN_PASSWORD_INPUT_FIELD, PASSWORD)
-        self.click_to_element(PersonalAccountLocators.LOGIN_APPLY_BUTTON)
+        self.click_element_if_visible(PersonalAccountLocators.LOGIN_APPLY_BUTTON)
         self.find_element_visibility(MainPageLocators.MAKE_ORDER_BUTTON)
 
     @allure.step('Извлечение текущего значения каунтера')
     def current_count(self):
         current_count_element = self.driver.find_element(*MainFunctionalityLocators.COUNTER_INGREDIENT)
         current_count = int(current_count_element.text)
-        print(f"Current count: {current_count}")
         return current_count
 
     @allure.step('Извлечение нового значения каунтера')
     def new_count(self):
         new_count_element = self.driver.find_element(*MainFunctionalityLocators.COUNTER_INGREDIENT)
         new_count = int(new_count_element.text)
-        print(f"New count: {new_count}")
         return new_count
 
 

@@ -1,0 +1,2 @@
+Initial count: 0
+New count after adding ingredient: 2
